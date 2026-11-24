@@ -1,0 +1,25 @@
+# Direct image-to-biomass training with a frozen DINOv3 encoder.
+experiment:
+  seed: 42
+  output_dir: outputs/biomass_run/{source}
+
+data:
+  root: data
+  source: camera
+  image_size: 512
+  num_workers: 0
+
+model:
+  architecture: frozen_dinov3_vitl16_mscale_dpa
+  backbone_name: checkpoints/dinov3
+  feature_layers: [4, 8, 12]
+  pretrained_backbone: true
+  local_files_only: true
+  hidden_channels: 512
+  dropout: 0.3
+
+training:
+  epochs: 100
+  batch_size: 8
+  learning_rate: 0.0003
+  weight_decay: 0.0001
